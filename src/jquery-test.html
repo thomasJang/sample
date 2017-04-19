@@ -4,12 +4,72 @@
   </head>
   <body>
 
+        <div style="padding: 10px;">
+          <button data-btn="show-hide">show/hide</button>
+          <button data-btn="slide">slide</button>
+          <button data-btn="fade">fade</button>
+        </div>
+
+        <div id="test-div"></div>
 
     <script>
     $(function(){
-      console.log('jQuery version is : ' + $().jquery);
+      //console.log('jQuery version is : ' + $().jquery);
+      var $div = $("#test-div");
+
+      $div.css({
+        width: 200,
+        height: 200,
+        background: "#000",
+        "border-radius": "50%"
+      });
+
+      // 버튼들에 이벤트 연결
+      $('[data-btn]').on("click", function(){
+        var processor = {
+          "show-hide": function(){
+            $div.toggle();
+          },
+          "slide": function(){
+            $div.slideToggle();
+          },
+          "fade": function(){
+            //$div.fadeToggle();
+
+
+            $div
+              .css({position:"absolute", left:0, top:100})
+              .animate({left: 300, width: 500, height: 500}, {
+                options:{
+                  //duration: 1000,
+                  //easing: "easeOutBounce",
+                  complete: function() {
+
+                  }
+                }
+              });
+
+
+          }
+        }
+        processor[this.getAttribute("data-btn")]();
+      });
+
     });
     </script>
-
   </body>
 </html>
+<!--
+1. css - show,hide
+2. effect - slide, animate
+
+
+<button data-btn="slide">slide</button>
+<button data-btn="fade">fade</button>
+
+
+
+
+
+
+-->
